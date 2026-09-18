@@ -3,6 +3,7 @@
 #include "AIityObserverPawn.h"
 #include "AIityFounderCharacter.h"
 #include "Camera/PlayerCameraManager.h"
+#include "Components/CapsuleComponent.h"
 #include "Engine/GameViewportClient.h"
 #include "Slate/SceneViewport.h"
 #include "AIityPlayerController.h"
@@ -137,13 +138,26 @@ bool FAIityObserverInputTest::RunTest(const FString& Parameters)
 		LocalPlayer->ViewportClient->Viewport = &Viewport;
 		Controller->SetViewTarget(Pawn);
 		Controller->PlayerCameraManager->UpdateCamera(0.0f);
-		const FVector FounderLocation = Controller->PlayerCameraManager->GetCameraLocation() +
-			Controller->PlayerCameraManager->GetCameraRotation().Vector() * 1000.0f;
+		// At time zero GetPlayerViewPoint can use the pawn instead of the camera cache.
+		// Place the target on the actual projection ray used by screen-position traces.
+		FVector RayOrigin = FVector::ZeroVector;
+		FVector RayDirection = FVector::ZeroVector;
+		TestTrue(TEXT("Viewport center deprojects"), Controller->DeprojectScreenPositionToWorld(
+			640.0f, 360.0f, RayOrigin, RayDirection));
+		TestTrue(TEXT("Projection ray is normalized"), RayDirection.IsNormalized());
+		const FVector FounderLocation = RayOrigin + RayDirection * 1000.0f;
 		AAIityFounderCharacter* Founder = World->SpawnActor<AAIityFounderCharacter>(
 			FounderLocation, FRotator::ZeroRotator);
 		if (TestNotNull(TEXT("Click target founder"), Founder))
 		{
 			Founder->InitializeFounder(2, TEXT("Click target"), 0);
+			TestTrue(TEXT("Founder capsule has query collision"), Founder->GetCapsuleComponent()->IsQueryCollisionEnabled());
+			TestEqual(TEXT("Founder capsule blocks selection channel"),
+				Founder->GetCapsuleComponent()->GetCollisionResponseToChannel(ECC_Pawn), ECR_Block);
+			FHitResult CenterHit;
+			TestTrue(TEXT("Center screen trace hits fixture"), Controller->GetHitResultAtScreenPosition(
+				FVector2D(640, 360), ECC_Pawn, false, CenterHit));
+			TestTrue(TEXT("Center hit is the intended founder"), CenterHit.GetActor() == Founder);
 			Controller->InputKey(FInputKeyEventArgs(&Viewport, INPUTDEVICEID_NONE,
 				EKeys::LeftMouseButton, IE_Pressed, 0));
 			TestEqual(TEXT("Founder selected at event delivery before processing frame"),
