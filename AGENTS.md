@@ -55,10 +55,12 @@ independently in isolated worktrees.
 Durable world open/create/load/resume belongs in `OnWorldBeginPlay`, after its
 superclass and before `GameMode::StartPlay`; do not add map-name filters.
 [#9](https://github.com/hazanid/AIity/issues/9) portable pull-request checks (`feature`)
-and [#10](https://github.com/hazanid/AIity/issues/10) camera launch (`bug` + `UI`)
-remain backlog. Primary native build passed in 61.59 seconds; `run.ATEqpo` passed all 13
+landed in PR #13. [#10](https://github.com/hazanid/AIity/issues/10) camera/input
+(`bug` + `UI`) has tested source improvements; physical mouse acceptance remains open.
+Primary foundation build passed in 61.59 seconds; `run.ATEqpo` passed all 13
 `AIity.*` tests. The added out-of-range arrival regression passed separately in
-`foundation-arrival-20260918`. Final runtime-source rebuild passed in 10.02 seconds.
+`foundation-arrival-20260918`. Final foundation rebuild passed in 10.02 seconds. The camera regression
+`issue10-final-20260918` passed separately after a clean 7.59-second build.
 
 ## Integration authority
 

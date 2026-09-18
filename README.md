@@ -9,9 +9,10 @@ close, and paused reopen without offline progression. The historical shutdown as
 matches an unresolved upstream Unreal viewport race; bounded standalone close/F9-close
 checks passed. See [exact evidence and limits](docs/status.md).
 
-Follow-up work remains for HUD (#4), graphics (#6), portable PR checks (#9), and
-camera/mouse interaction (#10). Keyboard selection/follow are verified; automated mouse
-selection is not. M1 prototypes are not a local-model/dialogue runtime.
+Portable pull-request checks (#9) are integrated. Follow-up work remains for HUD (#4),
+graphics (#6), and real-pointer acceptance (#10). Camera startup is stabilized and
+keyboard selection/follow are verified at 720p and 1080p; physical mouse acceptance is
+pending. M1 prototypes are not a local-model/dialogue runtime.
 
 ## Project knowledge
 
@@ -32,7 +33,7 @@ Owner-approved exception: M1 contract prototypes may be prepared under
    owner-managed installation through per-build `DEVELOPER_DIR`. Do not assume a
    system-wide path.
 2. Unreal Engine 5.8.2 compiled `AIityEditor` Mac Development arm64 with Xcode 26.3
-   and SDK 26.2. Latest targeted Automation `run.JPpLs9` passed all 13 `AIity.*` tests
+   and SDK 26.2. Foundation Automation `run.ATEqpo` passed all 13 `AIity.*` tests
    after the corrected native Mac Development arm64 build.
 3. `AIity.uproject` associates engine `5.8`. Do not call the world playable until
    later runtime proof; that proof is not a pre-`main` requirement.
@@ -55,12 +56,13 @@ To make a saved binary map later, open the running starter world in the editor, 
 - Left click: select a founder
 - `[` / `]`: select previous / next founder
 - `F`: follow the selected founder
-- `WASD`, `Q`, `E`, mouse: move the observer camera
+- `WASD`: move the observer; `Q` / `E`: descend / ascend
+- Hold right mouse button and move the mouse: look around
 
 The world opens paused. Saves live under `Saved/Worlds/` and are not committed.
 Keyboard selection, follow, pause, 4× speed, fresh Tick 0, clustered restore and exact
 paused reopen were observed in isolated graphical sessions. Small text, rendering,
-camera/mouse interaction, accessibility, and packaging remain unfinished.
+physical mouse acceptance, accessibility, and packaging remain unfinished.
 
 ## Narrow checks
 
@@ -95,7 +97,8 @@ Required Unreal Automation gate after engine setup:
 UE_ROOT="/path/to/UE_5.x" scripts/check-world.sh
 ```
 
-The wrapper runs only `AIity.*` tests with `-NullRHI`. It fails on missing engine, timeout, process failure, missing JSON report, zero tests, incomplete `inProcess`, or failed/unrun tests. It creates a unique report directory and does not clear a caller-supplied parent. Complete save/reopen, rendering, accessibility, and packaged 1080p performance remain pre-parallel and pre-release gates.
+The wrapper runs only `AIity.*` tests with `-NullRHI`. It fails on missing engine, timeout, process failure, missing JSON report, zero tests, incomplete `inProcess`, or failed/unrun tests. It creates a unique report directory and does not clear a caller-supplied parent. Save/reopen evidence is recorded in status. Rendering, accessibility, and packaged
+1080p performance remain release gates.
 
 Commands and setup notes here are a quick start. The
 [development guide](docs/development.md) is authoritative.

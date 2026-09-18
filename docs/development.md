@@ -17,8 +17,9 @@ Ordinary and F9-then-close standalone checks passed; the historical render-threa
 viewport assertion matches upstream [UE-382156](https://issues.unrealengine.com/issue/UE-382156)
 and remains an engine-version retest obligation. Do not patch the installed engine.
 
-Keyboard selection/follow, pause and speed are verified; automated mouse selection,
-initial framing, HUD readability and rendering remain follow-up. Bounded issue work may
+Keyboard selection/follow, pause and speed are verified. Camera framing matched on
+repeated 720p/1080p launches; use `-ForceRes` when the display clamps requested resolution.
+Physical mouse acceptance, HUD readability and rendering remain follow-up. Bounded issue work may
 proceed in isolated branches, with serialized native/graphical runs and lead integration.
 Packaging, accessibility and performance still gate release.
 
@@ -263,8 +264,9 @@ earlier run met these assertions; native `waitpid` signal status remains unverif
 
 ## Launch and controls
 
-After `AIityEditor` builds, open `AIity.uproject` and Play. One limited graphical run
-was exercised; it is not a passing graphical or playability gate.
+After `AIityEditor` builds, use the isolated standalone workflow above for diagnosis.
+Foundation and camera graphical evidence is recorded in status; this is not a packaged
+playability or performance gate.
 
 - `Space`: pause/resume
 - `R`: retry the writable storage probe after a persistence failure
@@ -272,7 +274,8 @@ was exercised; it is not a passing graphical or playability gate.
 - Left click: select
 - `[` / `]`: previous / next founder
 - `F`: follow selection
-- `WASD`, `Q`, `E`, mouse: observer camera
+- `WASD`: observer movement; `Q` / `E`: descend / ascend
+- Hold right mouse button and move the mouse: look around
 
 The world must open paused at Tick 0 when fresh, then commit exactly one resume transition
 when reopening an existing save. `Initialize` does superclass work only. Durable

@@ -2,6 +2,41 @@
 
 Date: 2026-09-18
 
+## Parallel follow-up integration — 2026-09-18
+
+- PR #13 / #9 portable pull-request checks landed at `88ca89e`. Exact-head GitHub
+  run `35350698939` passed; lead review and late Bugbot review found no blockers.
+- PR #14 landed at `ed3a6b3` after lead review, exact-head portable CI run
+  `35352830828`, and successful Bugbot review with no inline findings. It stabilizes
+  the opening overview after GameMode restart, removes inherited
+  always-on mouse look and Space ascent, and uses held RMB for look. Left-button
+  selection traces event-time viewport coordinates; capture allows left-button delivery.
+  No authoritative simulation, movement, persistence, save schema, or engine code changed.
+- Clean PR head `0ff0619` built in 7.59 seconds. Focused report
+  `TestReports/AIity/issue10-final-20260918` passed `AIity.Presentation.ObserverInput`
+  with 1 success and zero warnings/failed/notRun/inProcess. Integrated primary checkout
+  native build passed in 12.40 seconds. The focused test checks initial rotation,
+  one-time initialization, native WASD/QE and RMB mappings, no Space ascent, actual
+  founder collision/projection, selection before frame processing, and invalid cursor
+  rejection. Earlier fixture compile/link and projection failures were corrected;
+  their retained reports are not passing evidence.
+- Repeated fresh/resumed 720p launches showed matching overview and working keyboard
+  selection/follow. Fresh and resumed **1920×1080** launches also matched, remained
+  paused at Tick 0 then Tick 1, and keyboard selection/follow worked. F9 output dimensions
+  confirm 1920×1080. Closed-copy inspection confirms LogicalSeconds 0 and exactly one
+  reopen Event; production save-family hashes stayed unchanged. `-ForceRes` was needed: the first nominal 1080p request was clamped
+  to 1280×720 and is not counted as 1080p proof. Both actual 1080p ordinary closes exited 0.
+- Graphical pointer acceptance remains **unverified under #10**. Temporary diagnostics
+  showed distinct automated clicks/drags all delivered the same viewport coordinates
+  `(543,517)` and hit the floor. This limits the automation evidence; it does not establish
+  how a physical mouse behaves. No desktop-pointer workaround or diagnostic log remains.
+  The exposed automation also cannot hold RMB during a drag. Native look/movement
+  mappings passed; physical pointer selection and deliberate held-look/movement still
+  need a real input session. #10 stays open.
+- Local logs, screenshots, and isolated saves remain under the foundation verification
+  evidence directory. HUD #4, graphics #6, accessibility, packaging and performance remain
+  unfinished. This is a development foundation, not a playable release.
+
 ## Foundation verification — 2026-09-18 lead pass
 
 This is a verified development foundation for bounded follow-up issues, not a playable
@@ -91,7 +126,10 @@ engine-version retest; no speculative project regression can fix engine ownershi
 
 ### Remaining release gates and integration
 
-- Follow-up issues #4 HUD, #6 graphics, #9 portable PR checks, #10 camera/input, and
+- PR #13 integrated portable pull-request checks at `88ca89e`. Lead reviewed the
+  exact diff; GitHub portable run `35350698939` passed and Bugbot completed successfully
+  with no inline findings. These checks make no native or graphical claim.
+- Follow-up issues #4 HUD, #6 graphics, #10 camera/input, and
   later approved M1 work remain. #1 dialogue and #2 manager movement need bounded
   runtime contracts before implementation; prototypes are not runtime behavior.
 - Packaged cooking/1080p performance, broader accessibility, and a complete playable
