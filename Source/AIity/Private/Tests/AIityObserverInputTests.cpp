@@ -1,6 +1,10 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "AIityObserverPawn.h"
+#include "AIityFounderCharacter.h"
+#include "Camera/PlayerCameraManager.h"
+#include "Engine/GameViewportClient.h"
+#include "UnrealClient.h"
 #include "AIityPlayerController.h"
 #include "Components/InputComponent.h"
 #include "Engine/Engine.h"
@@ -9,6 +13,31 @@
 #include "GameFramework/PlayerInput.h"
 #include "InputKeyEventArgs.h"
 #include "Misc/AutomationTest.h"
+
+namespace
+{
+// No OS window or global cursor: model the viewport position at delivery and after leave.
+class FObserverClickViewport final : public FViewport
+{
+public:
+	FObserverClickViewport() { SizeX = 1280; SizeY = 720; }
+	FIntPoint Cursor { 640, 360 };
+	virtual void* GetWindow() override { return nullptr; }
+	virtual void MoveWindow(int32, int32, int32, int32) override {}
+	virtual void Destroy() override {}
+	virtual bool SetUserFocus(bool) override { return false; }
+	virtual bool KeyState(FKey) const override { return false; }
+	virtual int32 GetMouseX() const override { return Cursor.X; }
+	virtual int32 GetMouseY() const override { return Cursor.Y; }
+	virtual void GetMousePos(FIntPoint& Position, bool = true) override { Position = Cursor; }
+	virtual void SetMouse(int32 X, int32 Y) override { Cursor = FIntPoint(X, Y); }
+	virtual void ProcessInput(float) override {}
+	virtual FVector2D VirtualDesktopPixelToViewport(FIntPoint Point) const override { return FVector2D(Point); }
+	virtual FIntPoint ViewportToVirtualDesktopPixel(FVector2D Point) const override { return Point.IntPoint(); }
+	virtual void InvalidateDisplay() override {}
+	virtual void SetInitialSize(FIntPoint Size) override { SizeX = Size.X; SizeY = Size.Y; }
+};
+}
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAIityObserverInputTest, "AIity.Presentation.ObserverInput",
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
@@ -111,6 +140,36 @@ bool FAIityObserverInputTest::RunTest(const FString& Parameters)
 		TestTrue(TEXT("Pause key supplies no observer movement"), Pawn->ConsumeMovementInputVector().IsZero());
 		Key(EKeys::SpaceBar, IE_Released);
 		Process();
+
+		FObserverClickViewport Viewport;
+		ULocalPlayer* LocalPlayer = Controller->GetLocalPlayer();
+		LocalPlayer->PlayerController = Controller;
+		LocalPlayer->ViewportClient = NewObject<UGameViewportClient>(GEngine);
+		LocalPlayer->ViewportClient->Viewport = &Viewport;
+		Controller->SetViewTarget(Pawn);
+		Controller->PlayerCameraManager->UpdateCamera(0.0f);
+		const FVector FounderLocation = Controller->PlayerCameraManager->GetCameraLocation() +
+			Controller->PlayerCameraManager->GetCameraRotation().Vector() * 1000.0f;
+		AAIityFounderCharacter* Founder = World->SpawnActor<AAIityFounderCharacter>(
+			FounderLocation, FRotator::ZeroRotator);
+		if (TestNotNull(TEXT("Click target founder"), Founder))
+		{
+			Founder->InitializeFounder(2, TEXT("Click target"), 0);
+			Controller->InputKey(FInputKeyEventArgs(&Viewport, INPUTDEVICEID_NONE,
+				EKeys::LeftMouseButton, IE_Pressed, 0));
+			TestEqual(TEXT("Founder selected at event delivery before processing frame"),
+				Controller->GetSelectedFounderId(), uint64(2));
+			Viewport.Cursor = FIntPoint(-1, -1);
+			Process();
+			TestEqual(TEXT("Pointer leaving before frame cannot erase delivered selection"),
+				Controller->GetSelectedFounderId(), uint64(2));
+			Founder->InitializeFounder(3, TEXT("Changed target"), 0);
+			Controller->InputKey(FInputKeyEventArgs(&Viewport, INPUTDEVICEID_NONE,
+				EKeys::LeftMouseButton, IE_Pressed, 0));
+			TestEqual(TEXT("Invalid event position cannot reuse stale coordinates"),
+				Controller->GetSelectedFounderId(), uint64(2));
+		}
+		LocalPlayer->ViewportClient->Viewport = nullptr;
 	}
 	World->DestroyWorld(true);
 	World->SetPhysicsScene(nullptr);
