@@ -5,6 +5,7 @@
 #include "AIityGameMode.generated.h"
 
 class UStaticMesh;
+class UMaterialInterface;
 namespace AIity
 {
 struct FWorldState;
@@ -30,6 +31,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UStaticMesh> SphereMesh;
+
+	UPROPERTY()
+	TObjectPtr<UMaterialInterface> ShapeMaterial;
 
 	FString StartupFailure;
 
