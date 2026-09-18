@@ -7,6 +7,8 @@ int main()
 {
 	const AIity::FHudLayout Small = AIity::BuildHudLayout(1280.0f, 720.0f);
 	const AIity::FHudLayout Large = AIity::BuildHudLayout(1920.0f, 1080.0f);
+	assert(Small.StatusHeight >= 110.0f);
+	assert(Large.StatusHeight > Small.StatusHeight);
 	assert(Small.BodyTextHeight >= 16.0f);
 	assert(Small.HeadingTextHeight > Small.BodyTextHeight);
 	assert(Large.BodyTextHeight >= Small.BodyTextHeight);

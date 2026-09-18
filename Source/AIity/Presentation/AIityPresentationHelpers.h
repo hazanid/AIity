@@ -34,7 +34,8 @@ inline FHudLayout BuildHudLayout(float ViewportWidth, float ViewportHeight,
 	Layout.Padding = 16.0f * Layout.Scale;
 	Layout.ContentWidth = std::max(1.0f, Layout.PanelWidth - Layout.Padding * 2.0f);
 	Layout.StatusHeight = std::min(ViewportHeight * 0.4f,
-		std::max(96.0f * Layout.Scale, StatusContentHeight + Layout.Padding * 2.0f));
+		std::max({96.0f * Layout.Scale, ViewportHeight * 0.16f,
+			StatusContentHeight + Layout.Padding * 2.0f}));
 	return Layout;
 }
 
