@@ -15,6 +15,8 @@ public:
 	virtual void DrawHUD() override;
 
 private:
+	friend class FAIityHudLayoutTest;
+	float GetFontScale(UFont* Font, float PixelHeight) const;
 	float DrawWrappedText(const FString& Text, float X, float Y, float MaxWidth,
-		const FLinearColor& Color, UFont* Font, float Scale, float MaxY);
+		const FLinearColor& Color, UFont* Font, float Scale, float MaxY, bool bDraw = true);
 };
