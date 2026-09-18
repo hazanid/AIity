@@ -38,14 +38,15 @@ The latest owner direction is **main first**. It overrides earlier baseline gate
 waited for complete graphical or clustered-restore proof before integrating this
 reviewed, buildable source. This is not a playable release and not parallel-ready.
 
-A pull request is being created now. After `main`, a foundation-fix agent addresses
+The baseline landed through [PR #12](https://github.com/hazanid/AIity/pull/12).
+A foundation-fix agent next addresses
 remaining runtime proof and bugs [#5](https://github.com/hazanid/AIity/issues/5),
 [#7](https://github.com/hazanid/AIity/issues/7), [#8](https://github.com/hazanid/AIity/issues/8),
 and [#11](https://github.com/hazanid/AIity/issues/11) before parallel feature work.
 Graphical, clustered-restore, and playability proof remain required before parallel
 issues and before any playable claim.
 
-Use one issue, one owner, one isolated worktree, one branch, and one pull request.
+For delegated work, use one issue, one owner, one isolated worktree, one branch, and one pull request.
 Ownership must not overlap. Serialize review and merge. Serialize Unreal builds,
 Automation, and graphical sessions on the shared Mac. Portable work may run
 independently in isolated worktrees.
@@ -56,6 +57,19 @@ superclass and before `GameMode::StartPlay`; do not add map-name filters.
 and [#10](https://github.com/hazanid/AIity/issues/10) camera launch (`bug` + `UI`)
 remain backlog. Latest native build passed in 8.17 seconds; `run.JPpLs9` passed all
 13 `AIity.*` tests. Graphical and foundation follow-up remain after `main`.
+
+## Integration authority
+
+Owner-approved policy (2026-09-18): the lead agent owns integration into `main` and may
+commit scoped, verified changes directly to `main`. Preserve unrelated user changes;
+direct-write authority does not expand product scope or waive required checks.
+
+Subagents work on isolated `codex/` branches/worktrees and open PRs. They must not push
+to `main`, approve their own work as the final reviewer, or merge. The lead reviews their
+diffs and evidence, resolves blocking findings, and approves and merges their PRs.
+Serialize integration and shared-host Unreal runs. Do not force-push or bypass required
+checks. This explicit owner policy overrides personal workflow defaults that reserve
+merging for the human or require a PR for every lead-authored change.
 
 ## Required invariants
 
@@ -94,7 +108,8 @@ actions or prompts. Models cannot decide age or consent validity.
 
 God interventions are typed, bounded, committed, and audited.
 Runtime agents receive no shell, secret, filesystem, arbitrary network, or code tools.
-Source changes remain human-reviewed work; the simulation never rewrites itself.
+Runtime-originated source-change requests still need explicit owner approval; the
+simulation never rewrites itself. Development subagent PRs follow the integration policy.
 
 ## Verification and repository care
 
@@ -103,7 +118,7 @@ Portable checks do not prove Unreal compilation, Automation tests, graphics, or 
 Never claim an unrun gate passed. Record exact evidence in `docs/status.md`.
 Do not commit saves, secrets, model weights, engine files, caches, or machine paths.
 Track binary Unreal assets with appropriate Git LFS and document asset provenance.
-Preserve user edits. Avoid force pushes, automatic merges, and destructive cleanup.
+Preserve user edits. Avoid force pushes, unreviewed merges, and destructive cleanup.
 Update docs when a milestone, invariant, command, dependency, or blocker changes.
 
 ## GitHub issues

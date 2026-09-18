@@ -164,9 +164,15 @@ Do not run full CI locally. Interactive and packaged gates are separate from Aut
 
 ## Baseline issue workflow
 
-The owner approved development-baseline-first integration. This permits a reviewed,
-safe technical baseline before finished visuals; it does not waive startup, save/reopen,
-shutdown, native, security, or review gates.
+The owner's latest main-first direction landed the reviewed, buildable baseline in
+[PR #12](https://github.com/hazanid/AIity/pull/12). Native build and all 13 targeted tests
+passed. Remaining graphical restore/shutdown verification precedes parallel feature work
+and release, rather than blocking this initial integration.
+
+The lead owns `main`, may commit scoped and verified work directly, and reviews,
+approves and merges subagent PRs. Subagents must use isolated issue branches/worktrees;
+they may not push to `main` or merge. Required checks and blocking reviews still apply.
+See [integration authority](../AGENTS.md#integration-authority).
 
 Assign one issue worker to one isolated worktree, branch, and pull request. Ownership
 must not overlap. Review and merge are serialized before dependent work starts.

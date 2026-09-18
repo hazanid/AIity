@@ -10,8 +10,8 @@ Remaining runtime foundation proof and bugs
 [#8](https://github.com/hazanid/AIity/issues/8), and
 [#11](https://github.com/hazanid/AIity/issues/11) follow on `main` before parallel
 features. Graphical and clustered-restore proof remain required before parallel work
-and before any playable claim, not as a pre-`main` bar. A pull request is being
-created now. See [project status](docs/status.md).
+and before any playable claim, not as a pre-`main` bar. The baseline merged through
+[PR #12](https://github.com/hazanid/AIity/pull/12). See [project status](docs/status.md).
 
 Latest native evidence: corrected Mac Development arm64 build passed in 8.17 seconds;
 targeted report `run.JPpLs9` passed all 13 `AIity.*` tests (11 success, 2 success with

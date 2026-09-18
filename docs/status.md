@@ -39,7 +39,14 @@ Remaining runtime foundation proof and bugs
 [#11](https://github.com/hazanid/AIity/issues/11) are handled after `main` by a
 foundation-fix agent, then parallel work may start.
 
-Integration status: a pull request is being created now.
+Integration status: [PR #12](https://github.com/hazanid/AIity/pull/12) merged to `main`
+at `cb3d10e` on 2026-09-18. The local main checkout is synchronized. Saves and native
+reports were copied and byte-compared before the clean foundation worktree was removed.
+The optional Bugbot review was still running at merge; no required GitHub checks or
+branch rules were configured. Later findings belong to labeled foundation issues.
+
+The lead may commit scoped, verified work directly to `main` and owns review/approval/
+merge of development subagent PRs; see [integration authority](../AGENTS.md#integration-authority).
 
 Latest evidence: corrected native Mac Development arm64 build passed in 8.17 seconds.
 Targeted report `run.JPpLs9` passed all 13 `AIity.*` tests (11 success plus 2 success
