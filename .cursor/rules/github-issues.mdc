@@ -1,0 +1,29 @@
+---
+description: Required labels for every new GitHub issue
+alwaysApply: true
+---
+
+# GitHub issue labels
+
+Every newly created GitHub issue must include one or more of these exact names:
+
+`UI`, `graphics`, `bug`, `algorithm`, `feature`
+
+- `bug`: incorrect behavior
+- `feature`: a new capability or improvement
+- `UI`: interface, controls, layout, readability, or accessibility
+- `graphics`: rendering, lighting, materials, or art
+- `algorithm`: simulation rules, AI decisions, or planning
+
+Use every applicable label. Do not apply all five by default. Spell `algorithm` exactly; never `algorithem`.
+
+Before creating an issue, list existing labels and nearby issues (`gh label list`, `gh issue list`) so you reuse these names instead of duplicates. Keep any other existing labels on an issue. Do not add GitHub Actions or dependencies for labeling. The owner has authorized applying these relevant labels whenever an issue is created; no separate labeling approval is needed.
+
+```sh
+gh issue create --title "Founder HUD wraps names too late" \
+  --body "Long founder names overflow the needs panel." \
+  --label bug --label UI
+gh issue view <number> --json labels
+```
+
+Confirm the created issue shows the intended labels before you stop.
