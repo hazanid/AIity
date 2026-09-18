@@ -373,16 +373,14 @@ normal paused reopen without offline time, forced interruption recovery without 
 effects, and honest engine asset provenance. The foundation is a usable technical base,
 not completion of the full AI world.
 
-Current baseline order completed [issue #3](https://github.com/hazanid/AIity/issues/3)
-lifecycle activation. [Issue #7](https://github.com/hazanid/AIity/issues/7) clustered
-founder restore is source-written and awaits native proof.
-[Issue #5](https://github.com/hazanid/AIity/issues/5) ordinary shutdown remains an
-investigation. Features and polish [#1](https://github.com/hazanid/AIity/issues/1),
-[#2](https://github.com/hazanid/AIity/issues/2),
-[#4](https://github.com/hazanid/AIity/issues/4), and
-[#6](https://github.com/hazanid/AIity/issues/6) remain backlog. [Status](status.md)
-records the passing native build and targeted 11-test report, plus the graphical
-failures that still block baseline readiness.
+Foundation PR #12 and lifecycle issue #3 landed. The lead's subsequent foundation pass
+verified the #7 clustered restoration, #8 arrival, and #11 signed-storage contracts with
+native tests and relevant graphical evidence. Shutdown investigation #5 matches an
+upstream viewport-lifetime race; bounded ordinary and screenshot-close standalone checks
+passed. [Status](status.md) records exact evidence and the remaining limitations.
+Independent follow-up issues may proceed with isolated ownership and serialized native
+runs/integration. HUD #4, graphics #6, camera/input #10, packaging, accessibility and
+performance remain unfinished; this is not a playable-release claim.
 
 Owner-approved exception (2026-09-18): while Unreal installs, portable M1 contracts
 may be prepared under `prototypes/m1/` with `scripts/m1-contract-check.cpp` and

@@ -86,6 +86,14 @@ int main()
 	assert(DisplacedWithoutReceipt.State.Founders.front().Action.Id == ExactAction.Id);
 	FMovementReceipt ExactArrival{ExactAction.Id, ExactFounder.Id, ExactAction.Id, ExactAction.Epoch,
 		EMovementOutcome::Arrived, ExactAction.TargetX, ExactAction.TargetY};
+	FMovementReceipt OutsideArrival = ExactArrival;
+	OutsideArrival.X += 151;
+	const FCandidateTick Outside = FRules::BuildCandidate(ExactStarted.State, {OutsideArrival});
+	assert(Outside.ConsumedReceiptIds.empty());
+	assert(Outside.State.Founders.front().Action.AwaitingMovement);
+	assert(ResourceAmount(Outside.State, ExactAction.TargetId) == ExactAmountBefore);
+	assert(Outside.State.Founders.front().Food == ExactFoodBefore);
+	assert(Outside.State.Founders.front().Water == ExactWaterBefore);
 	const FCandidateTick ExactCompleted = FRules::BuildCandidate(ExactStarted.State, {ExactArrival});
 	assert(ResourceAmount(ExactCompleted.State, ExactAction.TargetId) == ExactAmountBefore - 1);
 	assert(ExactCompleted.State.Founders.front().Food + ExactCompleted.State.Founders.front().Water ==

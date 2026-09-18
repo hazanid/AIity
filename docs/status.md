@@ -2,6 +2,111 @@
 
 Date: 2026-09-18
 
+## Foundation verification — 2026-09-18 lead pass
+
+This is a verified development foundation for bounded follow-up issues, not a playable
+release or an implemented M1 model/dialogue runtime. Graphical polish, camera/mouse
+interaction, packaging, accessibility, and performance remain separate unfinished work.
+
+Fresh inspection found clean synchronized `main` at `1b48115`. PR #12 is merged;
+Cursor Bugbot completed successfully and its inline-comment list is empty. The old
+`Continue AIity to verified playable release` heartbeat is now **PAUSED**. The archived
+workflow and deleted worktree were not resumed.
+
+### Native and portable evidence
+
+- The primary checkout built `AIityEditor Mac Development arm64` with Unreal 5.8.2,
+  Xcode 26.3/SDK 26.2 in 61.59 seconds (exit 0).
+- `TestReports/AIity/run.ATEqpo` passed all 13 `AIity.*` tests: 11 success and 2 with
+  expected corrupt-fixture SQLite warnings; failed 0, notRun 0, inProcess 0.
+- That includes `FounderPlacement`, `SignedStorageRange`, legacy-gather resume/retry,
+  unchanged save-family preservation, and the three owned process-kill commit phases.
+- Added only explicit out-of-range arrival assertions to the existing portable/native
+  rules checks: a receipt 151 units from the target grants no goods, consumes neither
+  resource nor receipt identity, and keeps the Action awaiting movement.
+- Portable core check passed. The added native regression compiled in 8.03 seconds;
+  `TestReports/AIity/foundation-arrival-20260918` passed the one changed rules test,
+  with failed/notRun/inProcess all zero.
+- Final source rebuild after removing temporary mouse diagnostics passed in 10.02 seconds.
+  There is no retained runtime behavior change in this foundation pass.
+
+### Graphical and persistence evidence
+
+All graphical sessions used `-game -windowed` at 1280×720 and an isolated `-userdir`.
+The closed production SQLite family (including present WAL and both backups) was copied
+and SHA-256 compared before use. SQLite inspection was performed on additional closed
+copies only. Production family hashes stayed unchanged.
+
+Local evidence is retained under `Saved/FoundationVerification/20260918-main/`;
+reports, save copies, screenshots and machine paths are not committed.
+
+- The preserved clustered save opened with ten live `AIityFounderCharacter` instances
+  (confirmed by the native object list), six logged collision-safe offsets, no startup
+  failure, and the complete stable-ID group. Both clusters were visible through follow.
+  Native `FounderPlacement` additionally checks blocking collision, non-overlap, all ten
+  IDs, coordinate bounds, unchanged state, and bounded-placement failure cleanup.
+- First ordinary close exited 0. Closed-copy comparison proved Tick 241→242, exactly
+  one reopen Event and epoch increment, LogicalSeconds still 238, and byte-identical
+  serialized founder/resource/action records.
+- Second launch stayed paused at Tick 243. F9 produced `ScreenShot00000.png`; immediate
+  normal window close exited 0. Closed-copy comparison again showed LogicalSeconds 238,
+  unchanged founder/resource/action records, and exactly one new reopen Event.
+- A fresh isolated world opened paused at Tick 0, visibly moved founders after Space,
+  and paused at Tick 10. It committed 11 arrivals and 11 gathers, then closed with exit 0
+  after F9. The closed save had ten pending movement Actions.
+- That active save reopened paused at Tick 11 / LogicalSeconds 10. Closed-copy comparison
+  confirmed the same ten Action IDs, epoch 2, unchanged other founder fields/resources,
+  and exactly one reopen Event. Ordinary close exited 0.
+- A subsequent restored run visibly moved at 4×, paused at Tick 34 / LogicalSeconds 32,
+  and closed with exit 0 after F9. Its new Events included 14 arrivals, 14 gathers, and
+  three blocked movement outcomes. This run included an experimental input-mode change,
+  subsequently removed; no simulation/persistence code was changed.
+- Final unchanged runtime reopened paused at Tick 35, then visibly moved and gathered at
+  1×, paused at Tick 69 / LogicalSeconds 66, and exited 0 after F9. Closed-copy Events
+  confirm the single Tick 35 reopen; production save-family hashes still match.
+- Keyboard selection, founder follow, pause/resume, and 4× were graphically observed.
+  Mouse selection did not change selection through automated clicks. Temporary logging
+  showed the handler running with unavailable mouse coordinates. A native input-mode
+  experiment did not resolve it and was removed; no mouse-selection success is claimed.
+  This remains camera/input follow-up under #10.
+- Known #4 small text, #6 gray materials/black sky/lighting and Lumen warnings, and #10
+  inconsistent initial camera framing remain visible. None is described as finished.
+
+### Shutdown investigation (#5)
+
+The preserved historical crash calls `FSceneViewport::Destroy` from viewport destruction
+on the render thread, via `FSlateRHIRenderer::DrawWindow_RenderThread` releasing a shared
+reference. The installed 5.8.2 source still obtains a temporary viewport shared pointer
+on that rendering path, while `Destroy` requires the game thread.
+
+This closely matches Epic's unresolved [UE-382156](https://issues.unrealengine.com/issue/UE-382156)
+and the [Epic support discussion](https://forums.unrealengine.com/t/fsceneviewport-updateviewportrhi-assertion-failed-isingamethread/2736082).
+It supports an engine viewport-lifetime race; it does not prove F9 is its trigger.
+The current bounded ordinary-close and screenshot-close attempts did not reproduce it.
+No engine patch, assertion suppression, crash upload, or project workaround is claimed.
+Use the verified standalone `-game` workflow for development, pause before close, and
+retain the closed save family if the race recurs. Successful bounded runs are not a
+promise that an intermittent upstream defect is gone. Keep upstream tracking for an
+engine-version retest; no speculative project regression can fix engine ownership.
+
+### Remaining release gates and integration
+
+- Follow-up issues #4 HUD, #6 graphics, #9 portable PR checks, #10 camera/input, and
+  later approved M1 work remain. #1 dialogue and #2 manager movement need bounded
+  runtime contracts before implementation; prototypes are not runtime behavior.
+- Packaged cooking/1080p performance, broader accessibility, and a complete playable
+  M1 session are unverified. Native signal-exit status, power-loss, filesystem-fault,
+  and recovery-publication interruption proof remain distinct from SIGKILL-send tests.
+- Lead owns `main`; issue subagents use non-overlapping isolated `codex/` branches and
+  PRs. Review/merge and all shared-host Unreal runs are serialized. No force push or
+  bypassed checks. Runtime agents receive no execution tools.
+
+The sections below preserve the baseline's implementation inventory and historical
+investigation record. Statements about an underway rebuild or unrun tests there are
+historical and superseded by the exact evidence above.
+
+## Baseline record (historical)
+
 ## Glossary
 
 - **source-written:** Files exist in the worktree. Presence is not engine proof.

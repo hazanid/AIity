@@ -203,6 +203,20 @@ bool FAIityRulesFoundationTest::RunTest(const FString& Parameters)
 	const AIity::FMovementReceipt ExactArrival{ExactAction.Id, ExactFounder.Id,
 		ExactAction.Id, ExactAction.Epoch, AIity::EMovementOutcome::Arrived,
 		ExactAction.TargetX, ExactAction.TargetY};
+	AIity::FMovementReceipt OutsideArrival = ExactArrival;
+	OutsideArrival.X += 151;
+	const AIity::FCandidateTick Outside =
+		AIity::FRules::BuildCandidate(ExactStarted.State, {OutsideArrival});
+	TestTrue(TEXT("Out-of-range arrival does not consume the receipt identity"),
+		Outside.ConsumedReceiptIds.empty());
+	TestTrue(TEXT("Out-of-range arrival keeps gathering awaiting movement"),
+		Outside.State.Founders[0].Action.AwaitingMovement);
+	TestEqual(TEXT("Out-of-range arrival consumes no resource"),
+		ResourceAmount(Outside.State, ExactAction.TargetId), ExactAmountBefore);
+	TestEqual(TEXT("Out-of-range arrival grants no food"),
+		Outside.State.Founders[0].Food, ExactFoodBefore);
+	TestEqual(TEXT("Out-of-range arrival grants no water"),
+		Outside.State.Founders[0].Water, ExactWaterBefore);
 	const AIity::FCandidateTick ExactCompleted =
 		AIity::FRules::BuildCandidate(ExactStarted.State, {ExactArrival});
 	TestEqual(TEXT("Valid actual arrival consumes one resource"),

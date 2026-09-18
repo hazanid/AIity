@@ -36,15 +36,16 @@ Use Unreal facilities before adding services, frameworks, or dependencies.
 
 The latest owner direction is **main first**. It overrides earlier baseline gates that
 waited for complete graphical or clustered-restore proof before integrating this
-reviewed, buildable source. This is not a playable release and not parallel-ready.
+reviewed, buildable source. This is not a playable release; bounded follow-up issue work is now permitted.
 
 The baseline landed through [PR #12](https://github.com/hazanid/AIity/pull/12).
-A foundation-fix agent next addresses
-remaining runtime proof and bugs [#5](https://github.com/hazanid/AIity/issues/5),
-[#7](https://github.com/hazanid/AIity/issues/7), [#8](https://github.com/hazanid/AIity/issues/8),
-and [#11](https://github.com/hazanid/AIity/issues/11) before parallel feature work.
-Graphical, clustered-restore, and playability proof remain required before parallel
-issues and before any playable claim.
+The lead foundation pass verified native regressions and real clustered close/reopen;
+see [current evidence](docs/status.md#foundation-verification--2026-09-18-lead-pass).
+Bounded non-overlapping follow-up issues may now proceed. This is not a playable release.
+The historical shutdown stack matches upstream UE-382156; standalone ordinary/F9-close
+checks passed, but the intermittent engine defect is not claimed fixed. Keyboard
+selection/follow passed; mouse interaction remains unverified under #10. HUD #4 and
+graphics #6 remain unfinished, as do packaged performance and accessibility gates.
 
 For delegated work, use one issue, one owner, one isolated worktree, one branch, and one pull request.
 Ownership must not overlap. Serialize review and merge. Serialize Unreal builds,
@@ -55,8 +56,9 @@ Durable world open/create/load/resume belongs in `OnWorldBeginPlay`, after its
 superclass and before `GameMode::StartPlay`; do not add map-name filters.
 [#9](https://github.com/hazanid/AIity/issues/9) portable pull-request checks (`feature`)
 and [#10](https://github.com/hazanid/AIity/issues/10) camera launch (`bug` + `UI`)
-remain backlog. Latest native build passed in 8.17 seconds; `run.JPpLs9` passed all
-13 `AIity.*` tests. Graphical and foundation follow-up remain after `main`.
+remain backlog. Primary native build passed in 61.59 seconds; `run.ATEqpo` passed all 13
+`AIity.*` tests. The added out-of-range arrival regression passed separately in
+`foundation-arrival-20260918`. Final runtime-source rebuild passed in 10.02 seconds.
 
 ## Integration authority
 

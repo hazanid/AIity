@@ -1,5 +1,27 @@
 # Development
 
+## Current verification
+
+The lead foundation pass supersedes the older setup/evidence notes below. The primary
+checkout built successfully; `run.ATEqpo` passed all 13 targeted tests and
+`foundation-arrival-20260918` passed the added out-of-range arrival assertions.
+Real isolated clustered and active-action reopen preserved logical time and committed
+state, with exactly one resume transition. See [status](status.md) for exact evidence.
+
+For safe graphical diagnosis, close the world, preserve the complete present SQLite
+family and backups, and copy it to a new isolated directory. Launch the game with
+`-game -windowed -ResX=1280 -ResY=720 -userdir=<isolated-directory>`; Unreal uses its
+`Saved/Worlds/` subdirectory. Inspect only closed copies. Never open the source production
+database through a diagnostic SQLite connection. Keep unattended crash uploads disabled.
+Ordinary and F9-then-close standalone checks passed; the historical render-thread
+viewport assertion matches upstream [UE-382156](https://issues.unrealengine.com/issue/UE-382156)
+and remains an engine-version retest obligation. Do not patch the installed engine.
+
+Keyboard selection/follow, pause and speed are verified; automated mouse selection,
+initial framing, HUD readability and rendering remain follow-up. Bounded issue work may
+proceed in isolated branches, with serialized native/graphical runs and lead integration.
+Packaging, accessibility and performance still gate release.
+
 ## Glossary
 
 - **portable check:** A normal C++ compiler check for the logical core only.

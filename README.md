@@ -2,21 +2,16 @@
 
 AIity is an Unreal Engine C++ Stone Age settlement simulation. This foundation contains a deterministic portable core, ten named adult founders, finite food and water, visible movement, a small procedural river valley, a selectable observer camera, a prototype needs/Event display, and SQLite commit-before-publication saves.
 
-**Main first.** The owner directed a reviewed, buildable source baseline onto `main`
-as soon as possible. That is not a playable release and not parallel-issue ready.
-Remaining runtime foundation proof and bugs
-[#5](https://github.com/hazanid/AIity/issues/5),
-[#7](https://github.com/hazanid/AIity/issues/7),
-[#8](https://github.com/hazanid/AIity/issues/8), and
-[#11](https://github.com/hazanid/AIity/issues/11) follow on `main` before parallel
-features. Graphical and clustered-restore proof remain required before parallel work
-and before any playable claim, not as a pre-`main` bar. The baseline merged through
-[PR #12](https://github.com/hazanid/AIity/pull/12). See [project status](docs/status.md).
+**Development foundation verified; not a playable release.** PR #12 is merged.
+The lead's foundation pass verified all 13 native tests, clustered restoration of all
+ten founders, actual-arrival gathering rules, signed SQLite range rejection, ordinary
+close, and paused reopen without offline progression. The historical shutdown assertion
+matches an unresolved upstream Unreal viewport race; bounded standalone close/F9-close
+checks passed. See [exact evidence and limits](docs/status.md).
 
-Latest native evidence: corrected Mac Development arm64 build passed in 8.17 seconds;
-targeted report `run.JPpLs9` passed all 13 `AIity.*` tests (11 success, 2 success with
-expected corrupt-fixture SQLite warnings; failed 0, notRun 0, inProcess 0). Graphical
-and foundation follow-up remain after `main`.
+Follow-up work remains for HUD (#4), graphics (#6), portable PR checks (#9), and
+camera/mouse interaction (#10). Keyboard selection/follow are verified; automated mouse
+selection is not. M1 prototypes are not a local-model/dialogue runtime.
 
 ## Project knowledge
 
@@ -63,9 +58,9 @@ To make a saved binary map later, open the running starter world in the editor, 
 - `WASD`, `Q`, `E`, mouse: move the observer camera
 
 The world opens paused. Saves live under `Saved/Worlds/` and are not committed.
-Selection, follow, pause, 4× speed, and one isolated Tick 0/reopen check were
-historical observations. Clustered restore, small text, rendering, accessibility, and
-package gates remain required before parallel work and release.
+Keyboard selection, follow, pause, 4× speed, fresh Tick 0, clustered restore and exact
+paused reopen were observed in isolated graphical sessions. Small text, rendering,
+camera/mouse interaction, accessibility, and packaging remain unfinished.
 
 ## Narrow checks
 
