@@ -3,6 +3,8 @@
 #include "AIityFounderCharacter.h"
 #include "AIityWorldSubsystem.h"
 #include "EngineUtils.h"
+#include "InputKeyEventArgs.h"
+#include "UnrealClient.h"
 #include "GameFramework/Pawn.h"
 #include "Presentation/AIityPresentationHelpers.h"
 
@@ -16,7 +18,6 @@ AAIityPlayerController::AAIityPlayerController()
 void AAIityPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
-	InputComponent->BindAction(TEXT("Select"), IE_Pressed, this, &AAIityPlayerController::SelectUnderCursor);
 	InputComponent->BindAction(TEXT("NextFounder"), IE_Pressed, this, &AAIityPlayerController::SelectNextFounder);
 	InputComponent->BindAction(TEXT("PreviousFounder"), IE_Pressed, this, &AAIityPlayerController::SelectPreviousFounder);
 	InputComponent->BindAction(TEXT("Follow"), IE_Pressed, this, &AAIityPlayerController::ToggleFollow);
@@ -27,16 +28,29 @@ void AAIityPlayerController::SetupInputComponent()
 	InputComponent->BindAction(TEXT("Speed4"), IE_Pressed, this, &AAIityPlayerController::SpeedFour);
 }
 
-void AAIityPlayerController::SelectUnderCursor()
+bool AAIityPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
-	FHitResult Hit;
-	if (GetHitResultUnderCursor(ECC_Pawn, false, Hit))
+	const bool bHandled = Super::InputKey(Params);
+	if (Params.Viewport && Params.Key == EKeys::LeftMouseButton &&
+		(Params.Event == IE_Pressed || Params.Event == IE_DoubleClick))
 	{
-		if (const AAIityFounderCharacter* Founder = Cast<AAIityFounderCharacter>(Hit.GetActor()))
+		// The viewport has just cached this event's local position. A deferred action
+		// can run after MouseLeave invalidates that position or another event moves it.
+		FIntPoint Position;
+		Params.Viewport->GetMousePos(Position);
+		const FIntPoint Size = Params.Viewport->GetSizeXY();
+		FHitResult Hit;
+		if (Position.X >= 0 && Position.Y >= 0 && Position.X < Size.X && Position.Y < Size.Y &&
+			GetHitResultAtScreenPosition(FVector2D(Position), ECC_Pawn, false, Hit))
 		{
-			SelectedFounderId = Founder->GetFounderId();
+			if (const AAIityFounderCharacter* Founder = Cast<AAIityFounderCharacter>(Hit.GetActor()))
+			{
+				SelectedFounderId = Founder->GetFounderId();
+				return true;
+			}
 		}
 	}
+	return bHandled;
 }
 
 void AAIityPlayerController::SelectNextFounder()

@@ -1,6 +1,7 @@
 #include "AIityObserverPawn.h"
 
-#include "GameFramework/Controller.h"
+#include "Components/InputComponent.h"
+#include "GameFramework/PlayerController.h"
 #include "GameFramework/SpectatorPawnMovement.h"
 
 namespace
@@ -11,6 +12,7 @@ const FRotator InitialViewRotation(-28.0f, 40.0f, 0.0f);
 
 AAIityObserverPawn::AAIityObserverPawn()
 {
+	bAddDefaultMovementBindings = false;
 	bUseControllerRotationPitch = true;
 	bUseControllerRotationYaw = true;
 	if (USpectatorPawnMovement* Movement = Cast<USpectatorPawnMovement>(GetMovementComponent()))
@@ -21,24 +23,44 @@ AAIityObserverPawn::AAIityObserverPawn()
 	}
 }
 
-void AAIityObserverPawn::BeginPlay()
+void AAIityObserverPawn::Tick(float DeltaSeconds)
 {
-	Super::BeginPlay();
-	SetActorLocation(InitialViewLocation);
-	SetActorRotation(InitialViewRotation);
-	if (Controller)
+	// GameMode finishes restart by resetting control rotation after possession.
+	// Apply the overview once after that sequence, not inside PossessedBy.
+	if (bNeedsInitialView && Controller)
 	{
+		SetActorLocation(InitialViewLocation);
+		SetActorRotation(InitialViewRotation);
 		Controller->SetControlRotation(InitialViewRotation);
+		bNeedsInitialView = false;
+	}
+	Super::Tick(DeltaSeconds);
+}
+
+void AAIityObserverPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &AAIityObserverPawn::MoveForward);
+	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &AAIityObserverPawn::MoveRight);
+	PlayerInputComponent->BindAxis(TEXT("MoveUp"), this, &AAIityObserverPawn::MoveUp_World);
+	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &AAIityObserverPawn::LookYaw);
+	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &AAIityObserverPawn::LookPitch);
+}
+
+void AAIityObserverPawn::LookYaw(float Value)
+{
+	const APlayerController* Player = Cast<APlayerController>(Controller);
+	if (Player && Player->IsInputKeyDown(EKeys::RightMouseButton))
+	{
+		AddControllerYawInput(Value);
 	}
 }
 
-void AAIityObserverPawn::PossessedBy(AController* NewController)
+void AAIityObserverPawn::LookPitch(float Value)
 {
-	Super::PossessedBy(NewController);
-	SetActorLocation(InitialViewLocation);
-	SetActorRotation(InitialViewRotation);
-	if (NewController)
+	const APlayerController* Player = Cast<APlayerController>(Controller);
+	if (Player && Player->IsInputKeyDown(EKeys::RightMouseButton))
 	{
-		NewController->SetControlRotation(InitialViewRotation);
+		AddControllerPitchInput(Value);
 	}
 }
