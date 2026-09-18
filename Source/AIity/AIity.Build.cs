@@ -12,5 +12,13 @@ public class AIity : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new[] {
 			"AIModule", "ApplicationCore", "Projects"
 		});
+		// The windowless native selection test owns an FSceneViewport render resource.
+		if (!Target.bForceDisableAutomationTests &&
+			(Target.bForceCompileDevelopmentAutomationTests ||
+			 (Target.Configuration != UnrealTargetConfiguration.Test &&
+			  Target.Configuration != UnrealTargetConfiguration.Shipping)))
+		{
+			PrivateDependencyModuleNames.Add("RenderCore");
+		}
 	}
 }
