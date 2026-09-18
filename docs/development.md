@@ -98,6 +98,23 @@ No source-controlled binary map exists yet.
 `AndroidFileServer` is explicitly disabled in `AIity.uproject`. Android networking is
 outside foundation scope, and no generated runtime settings belong in project config.
 
+## Portable pull-request checks
+
+[Portable checks](../.github/workflows/portable-checks.yml) runs on each pull request,
+checking out its exact head commit on a GitHub-hosted Ubuntu runner. It compiles and
+runs the three C++17 checks below with warnings as errors, checks the Automation
+wrapper's Bash syntax, and checks patch whitespace against the PR merge base.
+Any failed command fails the job. Updated PRs cancel obsolete runs.
+
+The workflow uses a read-only contents token, an immutable official checkout action
+pin, and does not retain checkout credentials. It needs no repository secrets,
+engine installation, model weights, or personal paths. Branch protections are unchanged.
+
+These checks cover portable logic and M1 prototypes only. Unreal compilation,
+SQLiteCore adapters, Automation, graphics, and packaged performance still require
+their separate local gates. Serialize all Unreal builds, Automation, and graphical
+sessions on the shared Mac; passing this workflow is not playable-release evidence.
+
 ## Checks
 
 The portable check has been exercised successfully:

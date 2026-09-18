@@ -1,0 +1,51 @@
+name: Portable checks
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portable-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  portable:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out PR head
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Shell syntax and patch whitespace
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          bash -n scripts/check-world.sh
+          git diff --check "$BASE_SHA...HEAD"
+
+      - name: Portable core
+        run: |
+          clang++ -std=c++17 -Wall -Wextra -Werror scripts/core-check.cpp \
+            Source/AIity/Simulation/AIityRules.cpp \
+            Source/AIity/Simulation/AIitySerialization.cpp \
+            -o "$RUNNER_TEMP/aiity-core-check"
+          "$RUNNER_TEMP/aiity-core-check"
+
+      - name: Portable presentation
+        run: |
+          clang++ -std=c++17 -Wall -Wextra -Werror scripts/presentation-check.cpp \
+            -o "$RUNNER_TEMP/aiity-presentation-check"
+          "$RUNNER_TEMP/aiity-presentation-check"
+
+      - name: Portable M1 contracts
+        run: |
+          clang++ -std=c++17 -Wall -Wextra -Werror scripts/m1-contract-check.cpp \
+            prototypes/m1/AIityM1Contracts.cpp \
+            -o "$RUNNER_TEMP/aiity-m1-contract-check"
+          "$RUNNER_TEMP/aiity-m1-contract-check"
