@@ -182,7 +182,7 @@ scripts/check-world.sh
 The script must run only `AIity.*`, use a unique report directory, and fail on timeout,
 engine/process failure, missing report, zero tests, incomplete `inProcess`, or
 failed/unrun tests. Report `run.ARybOf` passed all 11 tests after the lifecycle change.
-Founder-placement and gather-arrival changes still need their own rerun. The script
+Later foundation and presentation reruns passed; see current status for exact reports. The script
 never clears the report parent; each run uses a new `run.*` child and preserves existing
 files. Engine output
 goes to a regular `engine-output.log` in that child. The script prints its path and at
@@ -217,21 +217,14 @@ See [integration authority](../AGENTS.md#integration-authority).
 Assign one issue worker to one isolated worktree, branch, and pull request. Ownership
 must not overlap. Review and merge are serialized before dependent work starts.
 [Issue #3](https://github.com/hazanid/AIity/issues/3) passed its lifecycle gates.
-[Issue #7](https://github.com/hazanid/AIity/issues/7) clustered restore is source-fixed
-and awaits native proof.
-[Issue #5](https://github.com/hazanid/AIity/issues/5) shutdown investigation remains a
-blocker. Features and polish [#1](https://github.com/hazanid/AIity/issues/1),
-[#2](https://github.com/hazanid/AIity/issues/2),
-[#4](https://github.com/hazanid/AIity/issues/4), and
-[#6](https://github.com/hazanid/AIity/issues/6) remain backlog.
+Foundation #5/#7/#8/#11 passed their bounded acceptance and are closed; the upstream
+shutdown race is not claimed fixed. HUD #4 and graphics #6 are integrated and verified.
+M2 dialogue #1 remains pending; manager movement #2 belongs to M3. See the roadmap.
 
 Portable work may run independently in isolated worktrees. On this shared Mac, serialize
 Unreal builds, Automation, and graphical sessions.
-[Issue #8](https://github.com/hazanid/AIity/issues/8) is the `bug` + `algorithm`
-gather-arrival companion. [Issue #9](https://github.com/hazanid/AIity/issues/9)
-portable pull-request checks (`feature`) and
-[issue #10](https://github.com/hazanid/AIity/issues/10) camera launch consistency
-(`bug` + `UI`) are backlog. The baseline is not a release.
+Portable pull-request checks #9 are integrated. Camera launch #10 has tested source
+improvements; physical-pointer acceptance remains open. The baseline is not a release.
 
 `AIity.Persistence.ProcessCrash` passed all three macOS process-kill phases.
 Its parent creates a fresh GUID directory under `Saved/Tests/ProcessCrash`, commits a
@@ -301,7 +294,7 @@ fixed tick in that frame, one committed candidate at a time. Founder timeout use
 same capped seconds. CharacterMovement walk speed is adjusted so its real-frame movement
 has the same distance budget, including a large hitch. Automation passed these bridge
 contracts, and one live run observed basic pause, 4× speed, selection, follow, and
-movement. Clustered restore failed, so broader bridge and graphical proof remains. See
+movement. The later clustered-restore pass succeeded; broader playability remains unfinished. See
 [status.md](status.md).
 
 ## Founder placement and durable XY
@@ -332,15 +325,14 @@ means no goods and one fresh valid arrival means one effect.
 world and never begins play or opens a production save. It expects separated positions
 to remain unchanged, ten co-located durable positions to become ten unique
 nonoverlapping blocking capsules, bounded-search failure to clean only attempt actors,
-and serialized WorldState to remain unchanged. This test is source-written and unrun.
+and serialized WorldState to remain unchanged. This test passed in the foundation pass and again after the M2 graphics change.
 It also expects `INT32_MIN`/`INT32_MAX` coordinate preflight rejection to preserve the
 existing group and serialized state.
 
 The initial view and follow source set controller rotation, not only pawn rotation.
 The prototype HUD keeps the selected founder name visible and has measured wrapping and
-reserved status space. Text remains too small and rendering remains primitive. Those
-warnings are deferred to [#4](https://github.com/hazanid/AIity/issues/4) and
-[#6](https://github.com/hazanid/AIity/issues/6), not treated as finished readability.
+reserved status space. Measured 16-pixel body text at 720p (20 at 1080p), bounded long names and failure
+status, and procedural colors/lighting are now verified. Art remains primitive.
 
 Verify founder movement, mouse and keyboard selection, follow framing, needs, Event feed,
 failed movement, pause/speed, save status, geometry, and exact paused reopen before
@@ -359,7 +351,7 @@ SQLite integer columns are signed 64-bit. Tick, LogicalSeconds, Event ID/Tick/Ag
 and consumed receipt ID must fit that range. WorldState validation rejects corrupt loaded
 values. Candidate envelope validation rejects Event and receipt overflow before `BEGIN`.
 Seed and PRNG remain full-range uint64 values serialized as text. The native
-`AIity.Persistence.SignedStorageRange` regression is source-written and unrun; it expects
+`AIity.Persistence.SignedStorageRange` regression passed in the foundation native run; it verifies
 all invalid candidates to leave current state, Events, receipts, and Checkpoints
 unchanged.
 

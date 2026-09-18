@@ -9,8 +9,8 @@ close, and paused reopen without offline progression. The historical shutdown as
 matches an unresolved upstream Unreal viewport race; bounded standalone close/F9-close
 checks passed. See [exact evidence and limits](docs/status.md).
 
-Portable pull-request checks (#9) are integrated. Follow-up work remains for HUD (#4),
-graphics (#6), and real-pointer acceptance (#10). Camera startup is stabilized and
+Portable pull-request checks (#9), readable HUD (#4), and procedural colors/lighting (#6)
+are integrated and verified. Real-pointer acceptance (#10) remains open. Camera startup is stabilized and
 keyboard selection/follow are verified at 720p and 1080p; physical mouse acceptance is
 pending. M2 prototypes are not a local-model/dialogue runtime.
 
@@ -65,8 +65,8 @@ To make a saved binary map later, open the running starter world in the editor, 
 
 The world opens paused. Saves live under `Saved/Worlds/` and are not committed.
 Keyboard selection, follow, pause, 4× speed, fresh Tick 0, clustered restore and exact
-paused reopen were observed in isolated graphical sessions. Small text, rendering,
-physical mouse acceptance, accessibility, and packaging remain unfinished.
+paused reopen were observed in isolated graphical sessions. HUD text and procedural lighting/colors are verified at 720p and 1080p.
+Physical mouse acceptance, broader accessibility, packaging and M2 behavior remain unfinished.
 
 ## Narrow checks
 

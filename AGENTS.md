@@ -50,7 +50,8 @@ Bounded non-overlapping follow-up issues may now proceed. This is not a playable
 The historical shutdown stack matches upstream UE-382156; standalone ordinary/F9-close
 checks passed, but the intermittent engine defect is not claimed fixed. Keyboard
 selection/follow passed; mouse interaction remains unverified under #10. HUD #4 and
-graphics #6 remain unfinished, as do packaged performance and accessibility gates.
+graphics #6 landed in PRs #28/#27 with native, graphical and targeted cook evidence.
+Packaged performance, broader accessibility and M2 behavior remain unfinished.
 
 For delegated work, use one issue, one owner, one isolated worktree, one branch, and one pull request.
 Ownership must not overlap. Serialize review and merge. Serialize Unreal builds,

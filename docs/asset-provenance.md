@@ -16,7 +16,9 @@ material; founder mesh components retain the same material. Packaging config exp
 cooks `/Engine/BasicShapes`. The installed engine material exposes the `Color` vector
 parameter; the meshes' default WorldGridMaterial does not. Startup validates the tint
 parameter and stops with a visible error if a required asset or valley actor is missing.
-Packaged-cook proof is still unrun.
+The targeted Mac Entry-map cook passed with all three meshes, the tint material, and its
+parent present in both cooked asset registries. A full packaged-app launch remains
+unverified under #22; see [evidence](status.md).
 Use is covered by the Unreal Engine license that applies to the installed engine.
 
 Founders use simple geometric bodies made from the same engine shapes. They are readable placeholders, not licensed human character art. The river is a colored non-colliding shape, not a water simulation.

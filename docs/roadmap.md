@@ -41,6 +41,9 @@ Survival and local intelligence:
 
 - [#16 Understandable survival and depletion](https://github.com/hazanid/AIity/issues/16):
   bounded choices, sleep/rest and meaningful shortage, not silent resource refill.
+- [#29 Purposeful idle exploration](https://github.com/hazanid/AIity/issues/29):
+  owner-requested searching for useful nearby activities when needs are met, with
+  bounded choices and survival interruption.
 - [#17 Durable M2 contracts and records](https://github.com/hazanid/AIity/issues/17):
   sole initial schema/state owner for dialogue, memory and request identities.
 - [#1 Nearby, awake dialogue eligibility](https://github.com/hazanid/AIity/issues/1).
@@ -64,7 +67,8 @@ Release evidence:
    and graphical sessions. #10 is an acceptance task; reuse its integrated camera work.
 2. #17 owns shared state/serialization/SQLite contracts. #16 may diagnose current-schema
    survival independently, but any new state fields must coordinate with #17. No two
-   independent schema migrations may race.
+   independent schema migrations may race. #29 exploration shares survival priorities
+   with #16 and new action/visit fields with #17; do not create a competing schema change.
 3. After #17 lands, #1 spatial eligibility and #18 inference adapter may proceed with
    non-overlapping ownership. #19 consumes both and performs end-to-end admission/delivery.
 4. #15 follows #4 and #10. #20 follows durable history contracts and #4/#15 layout work;

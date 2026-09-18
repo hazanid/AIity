@@ -398,7 +398,11 @@ object inspection #15 and reliable Mac launch/packaging. Completion of the techn
 foundation did not complete these release-facing requirements.
 
 Deliver ten distinct persistent lives, movement, finite survival, sleep and need decay,
-and understandable autonomous choices. Integrate one real local model for private/group
+and understandable autonomous choices. Owner direction during M2 kickoff adds bounded
+purposeful idle exploration (#29): stocked founders seek reachable nearby activities
+using local observations and preferences, with urgent survival interruption. Arrival
+alone grants no resources; no unused boredom statistic or global-resource oracle.
+Integrate one real local model for private/group
 dialogue and occasional goals with deterministic fallback. Add the first full Observatory,
 pause/speed, local history, safe reopen, and a complete GodRequest conversation/inbox.
 Capability acknowledgement means queued, not implemented. Resource grants wait for M3.

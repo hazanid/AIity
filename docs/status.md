@@ -2,6 +2,50 @@
 
 Date: 2026-09-18
 
+## M2 first batch — 2026-09-18
+
+- Graphics PR #27 merged at `d8facd3` after lead review, exact-head portable CI
+  `35356378569`, and successful Bugbot review with no inline findings. Native build
+  passed in 51.93 seconds; focused `m2-graphics-placement-20260918` passed
+  `AIity.Bridge.FounderPlacement` with one success and no warnings/failures/unrun tests.
+- Isolated 720p and actual 1920×1080 graphical sessions showed colored terrain, water,
+  vegetation and founders, daylight and atmosphere, with no prior unbuilt-lighting or
+  missing-Lumen-data overlays. Follow, movement and gathering were observed at 720p;
+  both sessions closed normally with exit 0. Art remains simple geometric placeholders.
+- Targeted Mac Entry-map cook succeeded: 503 packages, zero errors, three hostname
+  resolution warnings. Both cooked asset registries contain Cube, Cylinder, Sphere,
+  BasicShapeMaterial and BasicShapeMaterial_Inst. This proves cook inclusion, not a
+  complete packaged application or performance gate (#22/#23).
+- HUD PR #28 merged at `21d990f` after independent lead review, exact-head portable CI
+  `35358063606`, and successful Bugbot review with its one finding resolved.
+  Its corrected native build passed in 7.96
+  seconds; `m2-hud-final-20260918` passed both `AIity.Presentation.HudLayout` and
+  `AIity.Bridge.PresentationHelpers` with zero warnings/failed/notRun/inProcess.
+  Bugbot caught a reduced minimum status region; the correction preserves the existing
+  minimum and its regression. Combined graphics/HUD head `fb4c21b` built in 12.48 seconds.
+- Combined HUD/graphics graphical checks at 1280×720 and 1920×1080 showed readable
+  text, a two-line ellipsized long founder name, bounded wrapped event tokens, and
+  separate status content. Unsupported-schema fixtures displayed the failure message
+  without overlap at both sizes. All four sessions closed with exit 0. Native font
+  tests additionally cover a longer failure paragraph at both sizes. The 1080p long-name
+  fixture reopened paused; this presentation check is not a new exact-resume proof.
+  Production save-family hashes and file membership remained unchanged.
+- Integrated primary checkout `AIityEditor Mac Development arm64` build passed in
+  14.38 seconds. This leaves the main checkout ready to launch with both changes.
+- Owner-requested purposeful idle exploration is tracked in M2 #29 (feature + algorithm),
+  linked to survival #16, shared state owner #17 and acceptance #23. It is planned,
+  not implemented. Choices must stay local, bounded and interruptible by urgent needs;
+  exploration arrival grants no goods.
+- A portable 1,800-tick survival diagnostic with synthetic next-tick arrivals depleted
+  site food/water by tick 30 while inventories remained stocked. By tick 1,800 it recorded
+  248 unavailable-resource events; all founders still had 1,000 health. This identifies
+  stock-unaware gathering and repeated exhausted-site selection, not real movement or
+  30-minute graphical survival proof. Evidence is attached to #16; no survival rules or
+  save schema changed in this batch.
+- Local logs, screenshots, isolated save fixtures, cook output and diagnostic source
+  remain under `Saved/M2Verification/20260918/`; native reports remain under
+  `TestReports/AIity/`. Production saves are outside these fixtures.
+
 ## Milestone organization — owner approved 2026-09-18
 
 M1 now means the completed technical foundation; M2 is the approved next playable-world
