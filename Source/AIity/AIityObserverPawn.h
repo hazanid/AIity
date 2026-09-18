@@ -11,6 +11,11 @@ class AIITY_API AAIityObserverPawn : public ASpectatorPawn
 
 public:
 	AAIityObserverPawn();
-	virtual void BeginPlay() override;
-	virtual void PossessedBy(AController* NewController) override;
+	virtual void Tick(float DeltaSeconds) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+
+private:
+	bool bNeedsInitialView = true;
+	void LookYaw(float Value);
+	void LookPitch(float Value);
 };
