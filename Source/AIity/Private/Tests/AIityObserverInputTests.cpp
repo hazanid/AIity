@@ -4,7 +4,7 @@
 #include "AIityFounderCharacter.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Engine/GameViewportClient.h"
-#include "UnrealClient.h"
+#include "Slate/SceneViewport.h"
 #include "AIityPlayerController.h"
 #include "Components/InputComponent.h"
 #include "Engine/Engine.h"
@@ -17,25 +17,14 @@
 namespace
 {
 // No OS window or global cursor: model the viewport position at delivery and after leave.
-class FObserverClickViewport final : public FViewport
+class FObserverClickViewport final : public FSceneViewport
 {
 public:
-	FObserverClickViewport() { SizeX = 1280; SizeY = 720; }
+	FObserverClickViewport() : FSceneViewport(TSharedPtr<SViewport>()) { SizeX = 1280; SizeY = 720; }
 	FIntPoint Cursor { 640, 360 };
-	virtual void* GetWindow() override { return nullptr; }
-	virtual void MoveWindow(int32, int32, int32, int32) override {}
-	virtual void Destroy() override {}
-	virtual bool SetUserFocus(bool) override { return false; }
-	virtual bool KeyState(FKey) const override { return false; }
 	virtual int32 GetMouseX() const override { return Cursor.X; }
 	virtual int32 GetMouseY() const override { return Cursor.Y; }
 	virtual void GetMousePos(FIntPoint& Position, bool = true) override { Position = Cursor; }
-	virtual void SetMouse(int32 X, int32 Y) override { Cursor = FIntPoint(X, Y); }
-	virtual void ProcessInput(float) override {}
-	virtual FVector2D VirtualDesktopPixelToViewport(FIntPoint Point) const override { return FVector2D(Point); }
-	virtual FIntPoint ViewportToVirtualDesktopPixel(FVector2D Point) const override { return Point.IntPoint(); }
-	virtual void InvalidateDisplay() override {}
-	virtual void SetInitialSize(FIntPoint Size) override { SizeX = Size.X; SizeY = Size.Y; }
 };
 }
 
