@@ -6,6 +6,8 @@
 #include "AIityPlayerController.h"
 #include "AIityWorldSubsystem.h"
 #include "Components/DirectionalLightComponent.h"
+#include "Components/SkyAtmosphereComponent.h"
+#include "Components/SkyLightComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/DirectionalLight.h"
 #include "Engine/Engine.h"
@@ -51,6 +53,9 @@ AAIityGameMode::AAIityGameMode()
 	CubeMesh = Cube.Object;
 	CylinderMesh = Cylinder.Object;
 	SphereMesh = Sphere.Object;
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> Material(
+		TEXT("/Engine/BasicShapes/BasicShapeMaterial_Inst.BasicShapeMaterial_Inst"));
+	ShapeMaterial = Material.Object;
 }
 
 void AAIityGameMode::BeginPlay()
@@ -61,9 +66,11 @@ void AAIityGameMode::BeginPlay()
 	{
 		return;
 	}
-	if (!CubeMesh || !CylinderMesh || !SphereMesh)
+	FLinearColor DefaultColor;
+	if (!CubeMesh || !CylinderMesh || !SphereMesh || !ShapeMaterial ||
+		!ShapeMaterial->GetVectorParameterValue(FMaterialParameterInfo(TEXT("Color")), DefaultColor))
 	{
-		FailStartup(TEXT("STARTUP FAILED: required procedural geometry assets were not loaded."));
+		FailStartup(TEXT("STARTUP FAILED: required procedural geometry or tint material was not loaded."));
 		return;
 	}
 	if (!BuildRiverValley())
@@ -89,15 +96,17 @@ bool AAIityGameMode::SpawnShape(UStaticMesh* Mesh, const FVector& Location, cons
 	{
 		return false;
 	}
+	Actor->GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);
 	Actor->GetStaticMeshComponent()->SetStaticMesh(Mesh);
-	Actor->GetStaticMeshComponent()->SetMobility(EComponentMobility::Static);
+	Actor->GetStaticMeshComponent()->SetMaterial(0, ShapeMaterial.Get());
 	Actor->GetStaticMeshComponent()->SetCollisionEnabled(bCollision ? ECollisionEnabled::QueryAndPhysics : ECollisionEnabled::NoCollision);
 	Actor->SetActorScale3D(Scale);
 	if (UMaterialInstanceDynamic* Material = Actor->GetStaticMeshComponent()->CreateAndSetMaterialInstanceDynamic(0))
 	{
 		Material->SetVectorParameterValue(TEXT("Color"), Color);
+		return true;
 	}
-	return true;
+	return false;
 }
 
 bool AAIityGameMode::BuildRiverValley()
@@ -130,15 +139,37 @@ bool AAIityGameMode::BuildRiverValley()
 		FLinearColor(0.07f, 0.42f, 0.58f), false);
 
 	ADirectionalLight* Sun = GetWorld()->SpawnActor<ADirectionalLight>(FVector::ZeroVector, FRotator(-45, -25, 0));
-	if (Sun && Sun->GetLightComponent())
+	UDirectionalLightComponent* SunLight = Sun ? Cast<UDirectionalLightComponent>(Sun->GetLightComponent()) : nullptr;
+	if (SunLight)
 	{
-		Sun->GetLightComponent()->SetIntensity(6.0f);
+		SunLight->SetMobility(EComponentMobility::Movable);
+		SunLight->SetIntensity(6.0f);
+		SunLight->SetAtmosphereSunLight(true);
 	}
 	else
 	{
 		bSuccess = false;
 	}
-	bSuccess &= GetWorld()->SpawnActor<ASkyLight>() != nullptr;
+	ASkyAtmosphere* Atmosphere = GetWorld()->SpawnActor<ASkyAtmosphere>();
+	if (Atmosphere && Atmosphere->GetComponent())
+	{
+		Atmosphere->GetComponent()->SetMobility(EComponentMobility::Movable);
+	}
+	else
+	{
+		bSuccess = false;
+	}
+	ASkyLight* Sky = GetWorld()->SpawnActor<ASkyLight>();
+	if (Sky && Sky->GetLightComponent())
+	{
+		Sky->GetLightComponent()->SetMobility(EComponentMobility::Movable);
+		// The foundation sun is fixed: capture once after creating the atmosphere.
+		Sky->GetLightComponent()->RecaptureSky();
+	}
+	else
+	{
+		bSuccess = false;
+	}
 	return bSuccess;
 }
 
