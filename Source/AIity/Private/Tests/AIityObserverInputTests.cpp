@@ -134,6 +134,9 @@ bool FAIityObserverInputTest::RunTest(const FString& Parameters)
 		FObserverClickViewport Viewport;
 		ULocalPlayer* LocalPlayer = Controller->GetLocalPlayer();
 		LocalPlayer->PlayerController = Controller;
+		// LayoutPlayers normally assigns the full-window subregion for one player.
+		LocalPlayer->Origin = FVector2D::ZeroVector;
+		LocalPlayer->Size = FVector2D(1.0f, 1.0f);
 		LocalPlayer->ViewportClient = NewObject<UGameViewportClient>(GEngine);
 		LocalPlayer->ViewportClient->Viewport = &Viewport;
 		Controller->SetViewTarget(Pawn);
