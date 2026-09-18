@@ -1,4 +1,4 @@
-# AIity foundation
+# AIity — M1 technical foundation
 
 AIity is an Unreal Engine C++ Stone Age settlement simulation. This foundation contains a deterministic portable core, ten named adult founders, finite food and water, visible movement, a small procedural river valley, a selectable observer camera, a prototype needs/Event display, and SQLite commit-before-publication saves.
 
@@ -12,19 +12,23 @@ checks passed. See [exact evidence and limits](docs/status.md).
 Portable pull-request checks (#9) are integrated. Follow-up work remains for HUD (#4),
 graphics (#6), and real-pointer acceptance (#10). Camera startup is stabilized and
 keyboard selection/follow are verified at 720p and 1080p; physical mouse acceptance is
-pending. M1 prototypes are not a local-model/dialogue runtime.
+pending. M2 prototypes are not a local-model/dialogue runtime.
 
 ## Project knowledge
 
 - [Approved product and architecture plan](docs/plan.md)
 - [Current evidence, blockers, and next gates](docs/status.md)
+- [Milestones, issues and dependency order](docs/roadmap.md)
 - [Development, setup, checks, and save handling](docs/development.md)
 - [Foundation world rules](docs/world-rules.md)
 - [Asset provenance](docs/asset-provenance.md)
-- [M1 portable contracts](docs/m1-contracts.md)
+- [M2 portable contracts](docs/m1-contracts.md)
 - [Agent guidance](AGENTS.md)
 
-Owner-approved exception: M1 contract prototypes may be prepared under
+Milestone numbering was updated with owner approval: M1 foundation, M2 playable lives,
+M3 society/production, M4 generations. Legacy `m1` file and code names are retained.
+
+Owner-approved exception: M2 contract prototypes may be prepared under
 `prototypes/m1/` while Unreal installs. They are not runtime integration.
 
 ## Required setup on macOS
@@ -82,7 +86,7 @@ clang++ -std=c++17 -Wall -Wextra -Werror scripts/presentation-check.cpp \
   -o /tmp/aiity-presentation-check && /tmp/aiity-presentation-check
 ```
 
-Portable M1 contract check (not JSON, Ollama, or Unreal):
+Portable M2 contract check (not JSON, Ollama, or Unreal):
 
 ```sh
 clang++ -std=c++17 -Wall -Wextra -Werror \

@@ -3,7 +3,10 @@
 Status: owner-approved on 2026-09-18.
 
 This is the canonical product and architecture plan. Approval covers the foundation
-and M1. M2, M3, and further increments are roadmap, not current implementation.
+and M2. M3, M4, and further increments are roadmap, not current implementation.
+Owner-approved numbering (2026-09-18): M1 is the completed technical foundation;
+the former M1/M2/M3 product phases are now M2/M3/M4. Historical code/file names
+are retained. See [milestones and issue dependencies](roadmap.md).
 [Status](status.md) says what source exists and which gates have real evidence.
 
 ## Glossary
@@ -56,7 +59,7 @@ explicit, testable rules through reviewed increments.
 
 ## Architecture and ownership
 
-Use one Unreal C++ application and one loopback-only Ollama process when M1 requires it.
+Use one Unreal C++ application and one loopback-only Ollama process when M2 requires it.
 Use Unreal navigation, CharacterMovement, collision, animation, landscape, lighting,
 UI, HTTP/JSON, and SQLite support. Do not add a web dashboard, Python service, message
 broker, vector database, multiplayer server, or general agent framework.
@@ -109,8 +112,8 @@ Repository layout:
 - `Source/AIity/`: engine bridge, characters, world, and Observatory.
 - `Source/AIity/Private/Tests/`: targeted Unreal Automation scenarios.
 - `scripts/`: narrow checks.
-- `prototypes/m1/`: owner-approved portable M1 contracts only, not runtime.
-- `docs/`: plan, development, status, rules, asset provenance, and M1 contracts.
+- `prototypes/m1/`: owner-approved portable M2 contracts only, not runtime.
+- `docs/`: plan, development, status, rules, asset provenance, and M2 contracts.
 
 The owner approved development-baseline-first integration. A safe, reviewed development
 baseline may land before finished graphics and deferred features. This does not permit
@@ -234,7 +237,7 @@ must say so.
 - Courtship/intimacy/parenting: require relationship, authoritative age, consent, and care rules.
 - Request God/research: submit bounded requests or experiments with explicit costs.
 
-### Economy and invention — M2 roadmap
+### Economy and invention — M3 roadmap
 
 Use barter plus finite symbolic shell currency at the first trading milestone. Shell
 money is a gameplay convention, not a historical claim. Starting balances are world
@@ -254,7 +257,7 @@ Unsupported inventions become GodRequests describing behavior, ingredients, limi
 requested capability. Code work requires a reviewed task and human approval. New builds
 migrate saves safely. No live model-authored code executes.
 
-### Family, birth, and SoulProfile — M3 roadmap
+### Family, birth, and SoulProfile — M4 roadmap
 
 Founders are unrelated adults aged 20–35. Adult status comes from authoritative age.
 Both people must be living, awake, able to consent, and at least 18. Consent is specific,
@@ -285,7 +288,7 @@ with deterministic species controllers. Grazing, drinking, sleeping, fleeing,
 reproduction, and ecological resource use arrive together. Pets and domestication wait
 for feeding, trust, ownership, and care rules.
 
-## Local intelligence — M1
+## Local intelligence — M2
 
 All humans have a continuously active needs/goals controller. A fair asynchronous
 scheduler asks a local model at meaningful Events or intervals. Survival reflexes work
@@ -353,15 +356,15 @@ recovery states must be understandable.
 
 ## Delivery sequence
 
-### M0 — toolchain and runnable world
+### M1 prerequisite — toolchain and runnable world (completed baseline)
 
 Use an isolated worktree. Replace Unity ignore rules with Unreal exclusions. Keep source
 assets/config and exclude intermediates, caches, saves, and model weights. Verify full
-Xcode, a compatible stable Unreal 5, installation and cache space, and Ollama when M1
+Xcode, a compatible stable Unreal 5, installation and cache space, and Ollama when M2
 needs it. Pin versions only after a real Mac build. Pause for account action, unsupported
 toolchain, or storage choice. Never delete unrelated files for space.
 
-### Foundation PR — active milestone
+### M1 — technical foundation (completed baseline)
 
 Create the Unreal project and Mac target, bounded starter environment, ten founder
 records/actors, deterministic movement, and gather/eat/drink/rest. Add selectable camera,
@@ -382,39 +385,44 @@ Independent follow-up issues may proceed with isolated ownership and serialized 
 runs/integration. HUD #4, graphics #6, camera/input #10, packaging, accessibility and
 performance remain unfinished; this is not a playable-release claim.
 
-Owner-approved exception (2026-09-18): while Unreal installs, portable M1 contracts
+Owner-approved exception (2026-09-18): while Unreal installs, portable M2 contracts
 may be prepared under `prototypes/m1/` with `scripts/m1-contract-check.cpp` and
-[m1-contracts.md](m1-contracts.md). This does not start the M1 runtime PR, change
-foundation schema, or satisfy M1 acceptance. After fresh review, move the contracts
+[m1-contracts.md](m1-contracts.md). This does not start the M2 runtime PR, change
+foundation schema, or satisfy M2 acceptance. After fresh review, move the contracts
 into the runtime later; do not keep two copies.
 
-### M1 — approved next PR
+### M2 — first playable living world (approved next milestone)
+
+Carry forward unfinished HUD #4, graphics #6 and physical input #10; add read-only
+object inspection #15 and reliable Mac launch/packaging. Completion of the technical
+foundation did not complete these release-facing requirements.
 
 Deliver ten distinct persistent lives, movement, finite survival, sleep and need decay,
 and understandable autonomous choices. Integrate one real local model for private/group
 dialogue and occasional goals with deterministic fallback. Add the first full Observatory,
 pause/speed, local history, safe reopen, and a complete GodRequest conversation/inbox.
-Capability acknowledgement means queued, not implemented. Resource grants wait for M2.
+Capability acknowledgement means queued, not implemented. Resource grants wait for M3.
 
-M1 acceptance: 30 minutes at 1× with all founders completing several survival Actions;
+M2 acceptance: 30 minutes at 1× with all founders completing several survival Actions;
 real private and group model dialogue delivered correctly, filterable, and preserved
 after reopen; a founder GodRequest, reply, acknowledgement/rejection, and preserved
 history; meaningful depletion and blocked movement; exact committed reopen; forced
 interruption without duplicate effects; no offline time; real Unreal capture and measured
 performance. A mockup or headless executable alone does not pass.
 
-Build M1 in two runnable checkpoints:
+Build M2 through bounded issue PRs, with shared schema work serialized. Two product
+checkpoints organize delivery (neither is a single giant PR):
 
 1. Bounded Ollama goals and both dialogue channels.
 2. GodRequest loop, filtering, visual polish, performance, and recovery proof.
 
-### M2 — society that makes things
+### M3 — society that makes things
 
 Add shell currency/barter, atomic offers, gifts, relationships, memory, training,
 swimming, recipe discovery, teaching, crafting, shelter/storage, bounded resource grants,
 and first deer/birds. Show shortage causing negotiation and discovery changing work.
 
-### M3 — generations and controlled invention
+### M4 — generations and controlled invention
 
 Add consent-gated non-explicit intimacy, pregnancy, child care, parent naming,
 God-assigned SoulProfiles, model profiles, aging/death/inheritance, family history, and
@@ -434,7 +442,7 @@ Run targeted local checks only. CI runs after a pull request is opened.
 
 Required executable gate: C++ tests registered under `AIity.Rules`,
 `AIity.Persistence`, and `AIity.Bridge`, under `Source/AIity/Private/Tests/`.
-Add `AIity.Inference` in M1. `scripts/check-world.sh` must resolve a pinned engine and run
+Add `AIity.Inference` in M2. `scripts/check-world.sh` must resolve a pinned engine and run
 the Mac command-line editor with the project path, `-unattended -NullRHI -nosplash`, only
 the `AIity.*` group, verified completion, and a unique report path. It fails on engine
 absence, timeout, failed/zero tests, or missing report. It must not erase a caller path or
@@ -444,18 +452,18 @@ Core scenarios include resource/money conservation with explicit sources/sinks,
 unavailable goods, exhaustion, interruption/cancellation, starvation/dehydration,
 repeatable seeded decisions, actual arrival before gathering, collision-safe group
 placement, bounded placement failure cleanup, spatial failure, and duplicate/stale
-rejection. Money checks arrive with M2.
+rejection. Money checks arrive with M3.
 
 Persistence scenarios include normal close, real interruption before/during/after commit,
 disk-full injection, unsupported schema unchanged, corrupted newest backup with prior
 validated recovery, wall-clock delay, repeated load, exclusive second-writer rejection,
 bounded storage, and low-space pause. Compare state/Event boundaries, not screenshots.
 
-AI boundary scenarios in M1 include valid schema, malformed/oversized response, missing
+AI boundary scenarios in M2 include valid schema, malformed/oversized response, missing
 IDs, privileged commands, prompt injection, offline runtime, cancellation, late callback,
 bounded memory, and fair scheduling.
 
-M2/M3 checks include concurrent trade acceptance, inventory limits, reservations,
+M3/M4 checks include concurrent trade acceptance, inventory limits, reservations,
 pregnancy capacity, age 17 vs 18, consent withdrawal, duplicate birth delivery, naming
 fallback, and forbidden juvenile prompts/Actions.
 

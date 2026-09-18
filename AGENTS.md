@@ -16,16 +16,21 @@ The plan records intent. Status records evidence. Code and tests record current 
 
 ## Current scope
 
-The active milestone is the foundation: a runnable, saved Unreal settlement.
-Approved M1 follows the foundation and adds local-model lives and dialogue.
-M2 economy and invention, M3 generations, and later ecology are roadmap only.
+M1 is the completed technical foundation, not a playable release.
+M2 is the approved next milestone: the first playable living world, including remaining
+HUD/graphics/input work, understandable finite survival, local-model lives and dialogue.
+M3 economy and invention, M4 generations, and later ecology are roadmap only.
 Do not silently move roadmap work into the active milestone.
+Use GitHub milestones for phase membership and preserve existing type labels.
+See [issue roadmap and dependency order](docs/roadmap.md).
+Historical `prototypes/m1/` and `m1-contract-check` paths now refer to M2 preparation;
+do not rename code or duplicate contracts merely to change milestone numbering.
 
-Owner-approved exception (2026-09-18): engine-independent M1 contracts may live
-under `prototypes/m1/` plus `scripts/m1-contract-check.cpp` and
-[docs/m1-contracts.md](docs/m1-contracts.md) while Unreal installs. Do not edit
-foundation Source, schema, or runtime for this exception. After fresh review, move
-the contracts into the runtime later; do not keep two copies.
+The earlier preparation exception allowed engine-independent contracts under
+`prototypes/m1/` plus `scripts/m1-contract-check.cpp` and
+[docs/m1-contracts.md](docs/m1-contracts.md) while Unreal was installing.
+That preparation exception did not authorize foundation runtime edits. M2 runtime integration now proceeds through bounded issues
+and fresh review, with shared schema ownership serialized; do not keep two copies.
 
 The product is one Unreal C++ app.
 The logical core under `Source/AIity/Simulation/` is ordinary portable C++.

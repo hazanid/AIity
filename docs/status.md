@@ -2,6 +2,22 @@
 
 Date: 2026-09-18
 
+## Milestone organization — owner approved 2026-09-18
+
+M1 now means the completed technical foundation; M2 is the approved next playable-world
+milestone. Former product phases M1/M2/M3 are now M2/M3/M4. This renumbering claims no
+additional implementation or playability. Historical records below retain their original
+names; `prototypes/m1/`, contract-check paths and code identifiers remain unchanged.
+
+GitHub milestones 1–4 are created, with M1 closed and M2–M4 open. Existing issues were
+reused with labels preserved; eight detailed M2 issues (#16–#23), M3/M4 roadmap trackers
+(#24/#25), and an unassigned later-roadmap tracker (#26) were added. #2 manager movement
+belongs to M3; #15 object inspection is M2. No runtime or save changes were made. Milestone assignments, required labels on all
+11 new issues, local documentation links and `git diff --check` were verified; no Unreal
+run was needed for this issue/documentation-only change.
+See [roadmap](roadmap.md) for acceptance and dependencies. Only M2 is current delivery;
+open M3/M4 milestones are planning containers, not implementation authorization.
+
 ## Parallel follow-up integration — 2026-09-18
 
 - PR #13 / #9 portable pull-request checks landed at `88ca89e`. Exact-head GitHub
@@ -40,7 +56,7 @@ Date: 2026-09-18
 ## Foundation verification — 2026-09-18 lead pass
 
 This is a verified development foundation for bounded follow-up issues, not a playable
-release or an implemented M1 model/dialogue runtime. Graphical polish, camera/mouse
+release or an implemented M2 model/dialogue runtime. Graphical polish, camera/mouse
 interaction, packaging, accessibility, and performance remain separate unfinished work.
 
 Fresh inspection found clean synchronized `main` at `1b48115`. PR #12 is merged;
@@ -130,10 +146,10 @@ engine-version retest; no speculative project regression can fix engine ownershi
   exact diff; GitHub portable run `35350698939` passed and Bugbot completed successfully
   with no inline findings. These checks make no native or graphical claim.
 - Follow-up issues #4 HUD, #6 graphics, #10 camera/input, and
-  later approved M1 work remain. #1 dialogue and #2 manager movement need bounded
-  runtime contracts before implementation; prototypes are not runtime behavior.
+  approved M2 work remain. #1 dialogue needs bounded runtime contracts; #2 manager
+  movement is M3 roadmap. Prototypes are not runtime behavior.
 - Packaged cooking/1080p performance, broader accessibility, and a complete playable
-  M1 session are unverified. Native signal-exit status, power-loss, filesystem-fault,
+  M2 session are unverified. Native signal-exit status, power-loss, filesystem-fault,
   and recovery-publication interruption proof remain distinct from SIGKILL-send tests.
 - Lead owns `main`; issue subagents use non-overlapping isolated `codex/` branches and
   PRs. Review/merge and all shared-host Unreal runs are serialized. No force push or

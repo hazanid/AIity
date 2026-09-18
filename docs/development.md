@@ -40,7 +40,7 @@ Packaging, accessibility and performance still gate release.
 - **process-kill gate:** Test-only proof of SQLite state after killing one owned child process.
 - **commit barrier:** Test-only marker and bounded wait at one exact commit phase.
 - **VFS:** SQLite's engine-specific file layer.
-- **M1 contract prototype:** Portable validation and publication helpers under
+- **M2 contract prototype:** Portable validation and publication helpers under
   `prototypes/m1/`. Not Unreal, Ollama, or JSON decoding.
 - **development baseline:** A buildable technical foundation for issue branches; not a
   playable release.
@@ -63,8 +63,8 @@ at paused Tick 0. One reopen passed at Tick 1 with exactly one epoch/Event and u
 founders, resources, and LogicalSeconds. Three ordinary closes were clean, including one
 after F9. The current founder-placement and gather-arrival changes need a new build and
 test run. No clustered-restore, package, accessible-UI, or playable gate has passed.
-Ollama is not needed for the foundation or for the portable M1 contract prototype.
-Install it only for approved M1 adapter work after engine setup.
+Ollama is not needed for the foundation or for the portable M2 contract prototype.
+Install it only for approved M2 adapter work after engine setup.
 
 Official references:
 
@@ -88,7 +88,7 @@ founder-placement change.
 `AIity.Build.cs` intentionally leaves `CppStandard` unset so UE 5.8 supplies its
 supported default. Both targets use `BuildSettingsVersion.V7`. Do not add an
 override build environment or suppress the engine warning checks. Portable core,
-presentation, and M1 contract checks remain independent C++17 checks.
+presentation, and M2 contract checks remain independent C++17 checks.
 
 `Config/DefaultEngine.ini` deliberately starts `/Engine/Maps/Entry` with
 `AAIityGameMode`. The game mode builds the starter valley from hard engine-mesh
@@ -111,7 +111,7 @@ The workflow uses a read-only contents token, an immutable official checkout act
 pin, and does not retain checkout credentials. It needs no repository secrets,
 engine installation, model weights, or personal paths. Branch protections are unchanged.
 
-These checks cover portable logic and M1 prototypes only. Unreal compilation,
+These checks cover portable logic and M2 prototypes only. Unreal compilation,
 SQLiteCore adapters, Automation, graphics, and packaged performance still require
 their separate local gates. Serialize all Unreal builds, Automation, and graphical
 sessions on the shared Mac; passing this workflow is not playable-release evidence.
@@ -147,7 +147,7 @@ clang++ -std=c++17 -Wall -Wextra -Werror \
 It checks previous/next founder wrap and HUD layout bounds at 1280×720 and 1920×1080.
 It does not prove controller view rotation, real font wrapping, rendering, or cooking.
 
-Portable M1 contract check:
+Portable M2 contract check:
 
 ```sh
 clang++ -std=c++17 -Wall -Wextra -Werror \
@@ -437,6 +437,6 @@ Current art references built-in engine shapes; see [asset provenance](asset-prov
 Future `.uasset` and `.umap` files use Git LFS only after remote quota/support is checked.
 Never commit engine binaries, caches, saves, secrets, or model weights.
 
-M1 local model setup is not implemented. When it is, Ollama must bind to loopback with
+M2 local model setup is not implemented. When it is, Ollama must bind to loopback with
 cloud features disabled. Record exact artifact digest/settings in the world database and
 [status.md](status.md). Do not invent setup commands before that adapter exists.

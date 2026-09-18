@@ -1,8 +1,12 @@
-# M1 portable contracts
+# M2 portable contracts (legacy `m1` paths)
 
 Owner approved this engine-independent preparation on 2026-09-18 while Unreal
-installs. It is a bounded exception, not M1 runtime integration and not a foundation
+installs. It is a bounded exception, not M2 runtime integration and not a foundation
 release gate.
+
+The owner renumbered milestones on 2026-09-18. These unintegrated contracts belong
+to M2; their file paths, namespaces and executable output retain historical M1 names.
+No implementation or acceptance status changed with the numbering.
 
 ## Glossary
 
@@ -187,7 +191,7 @@ Documentation checked 2026-09-18. Do not install Ollama in this pass.
 - [Ollama FAQ](https://docs.ollama.com/faq): bind `127.0.0.1:11434` and set
   `OLLAMA_NO_CLOUD=1` when installing.
 
-Approved M1 target remains one loaded model and one in-flight request. This
+Approved M2 target remains one loaded model and one in-flight request. This
 preparation has no scheduler or transport.
 
 ## Tests in this pass
@@ -207,4 +211,4 @@ revisions, or runtime routing from a fallback marker into existing survival rule
 ## Later integration
 
 Move these reviewed functions into `Source/AIity/Simulation/` once. Do not keep a
-second copy. Foundation engine gates stay required before playable M1.
+second copy. Foundation engine gates stay required before playable M2.
